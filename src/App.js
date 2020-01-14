@@ -28,6 +28,7 @@ class App extends React.Component {
     this.state = {
       ToDoList: todos
     };
+    localStorage.setItem('ToDoList', JSON.stringify(this.state.ToDoList))
   }
 
   toggleCompleted = id => {
@@ -43,6 +44,7 @@ class App extends React.Component {
           }
       })
     })
+    localStorage.setItem('ToDoList', JSON.stringify(this.state.ToDoList))
   }
 
 
@@ -52,9 +54,20 @@ class App extends React.Component {
       id: Date.now(),
       completed: false
     }
+
     this.setState({
       ToDoList: [...this.state.ToDoList, newTask]
     });
+    localStorage.clear()
+    localStorage.setItem('ToDoList', JSON.stringify(this.state.ToDoList))
+  }
+
+  filterOutCompleted = () => {
+    this.setState({
+      ToDoList: this.state.ToDoList.filter(item => item.completed === false)
+    })
+    localStorage.clear();
+    localStorage.setItem('ToDoList', JSON.stringify(this.state.ToDoList))
   }
 
 
@@ -63,9 +76,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Git 'R Done</h2>
+        <h1>Git 'R Done</h1>
         <ToDoList toggleCompleted={this.toggleCompleted} itemsList={this.state.ToDoList} />
         <ToDoForm addTask={this.addTask} />
+        <button className='removeButton' onClick={this.filterOutCompleted}>Remove Completed</button>
       </div>
     );
   }

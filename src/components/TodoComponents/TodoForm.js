@@ -30,7 +30,7 @@ class ToDoForm extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <input onChange={this.handleChange} value={this.state.item} />
 
-                <button type='submit' >Add Task</button>
+                <button className='addTask' type='submit' >Add Task</button>
             </form>
         )
     }
